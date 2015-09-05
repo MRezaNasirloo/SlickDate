@@ -1,4 +1,4 @@
-package com.sixthsolution.datecalculator.chronology;
+package com.sixthsolution.datecalculator.calendar;
 
 import java.util.ArrayList;
 import org.joda.time.DateTimeConstants;
@@ -10,7 +10,7 @@ public class CalendarConfig {
   public static final int MONDAY = DateTimeConstants.MONDAY;
 
   public enum Chronology {
-    ISO, GREGORIAN, JALALI, ISLAMIC
+    ISO, JALALI, ISLAMIC
   }
 
   public ArrayList<Chronology> chronologies = new ArrayList<>();
@@ -19,6 +19,7 @@ public class CalendarConfig {
   public int timeZoneMinute = 0;
   public boolean hasTimeZone = false;
   public int firstDayOfWeek = MONDAY;
+  public String locale = "en";
 
   public CalendarConfig() {
     chronologies.add(Chronology.ISO);
@@ -39,5 +40,9 @@ public class CalendarConfig {
   }
 
   public void setFirstDayOfWeek(int firstDayOfWeek) {
+  }
+
+  public void setLocale(String locale) {
+
   }
 }

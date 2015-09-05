@@ -1,8 +1,9 @@
 package com.sixthsolution.datecalculator;
 
-import com.sixthsolution.datecalculator.chronology.CalendarConfig;
+import com.sixthsolution.datecalculator.calendar.CalendarConfig;
 import com.sixthsolution.datecalculator.model.Day;
 import java.util.ArrayList;
+import org.joda.time.DateTime;
 
 public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
@@ -49,6 +50,14 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   @Override public Day getDay(int year, int month, int day) {
+    return null;
+  }
+
+  @Override public String getReadableTimestamp(DateTime toDateTime) {
+    return null;
+  }
+
+  @Override public String getReadableTimestamp(DateTime toDateTime, String locale) {
     return null;
   }
 }
