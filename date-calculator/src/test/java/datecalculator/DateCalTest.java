@@ -64,4 +64,24 @@ public class DateCalTest {
         ArrayList<Day> weekDays = dateCal.getWeekDays(1);
         assertEquals(7, weekDays.size());
     }
+
+    @Test
+    public void it_should_return_the_list_of_days_for_next_month() throws Exception {
+        //TODO: Add more tests
+        ArrayList<Day> monthDays = dateCal.getMonthDays(2);
+        day = monthDays.get(0);
+        dateTime = new DateTime(day.year, day.month, day.day, 0, 0, 0);
+
+        assertEquals(dateTime.dayOfMonth().getMaximumValue(), monthDays.size());
+    }
+
+    @Test
+    public void it_should_return_the_list_of_days_for_past_month() throws Exception {
+        //TODO: Add more tests
+        ArrayList<Day> monthDays = dateCal.getMonthDays(-3);
+        day = monthDays.get(0);
+        dateTime = new DateTime(day.year, day.month, day.day, 0, 0, 0);
+        assertEquals(dateTime.dayOfMonth().getMaximumValue(), monthDays.size());
+
+    }
 }
