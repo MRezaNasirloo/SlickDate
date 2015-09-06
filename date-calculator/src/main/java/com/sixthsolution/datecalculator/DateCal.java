@@ -4,6 +4,7 @@ import com.sixthsolution.datecalculator.calendar.CalendarConfig;
 import com.sixthsolution.datecalculator.model.Day;
 import java.util.ArrayList;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
@@ -25,7 +26,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   private DateCal() {
-    mConfig = new CalendarConfig();
+    mConfig = new CalendarConfig.ConfigBuilder().build();
   }
 
   public DateCal setConfig(CalendarConfig config) {
@@ -38,7 +39,20 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   @Override public Day getDay(int dayIndicator) {
-    return null;
+      DateTime dateTime = new DateTime();
+      if (mConfig.hasTimeZone) {
+          DateTimeZone timeZone = DateTimeZone.forOffsetHoursMinutes(mConfig.timeZoneHour, mConfig.timeZoneMinute);
+          dateTime = dateTime.withZone(timeZone);
+      }
+      if (dayIndicator >= 0)
+          dateTime = dateTime.plusDays(dayIndicator);
+      else
+          dateTime = dateTime.minusDays(-dayIndicator);
+      Day day = new Day();
+      day.year = dateTime.getYear();
+      day.month = dateTime.getMonthOfYear();
+      day.day = dateTime.getDayOfMonth();
+      return day;
   }
 
   @Override public ArrayList<Day> getWeekDays(int weekIndicator) {
