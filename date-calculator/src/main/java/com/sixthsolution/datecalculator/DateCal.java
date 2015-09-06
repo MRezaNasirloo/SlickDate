@@ -64,10 +64,16 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
     @Override public ArrayList<Day> getMonthDays(int monthIndicator) {
-    return null;
-  }
+        DateTime dateTime = new DateTime();
+        if (mConfig.hasTimeZone) {
+            DateTimeZone timeZone = DateTimeZone.forOffsetHoursMinutes(mConfig.timeZoneHour, mConfig.timeZoneMinute);
+            dateTime = new DateTime(timeZone);
+        }
+        Duration duration = getMonthBounds(dateTime, monthIndicator);
+        return getDays(duration);
+    }
 
-  @Override public Day getDay(int year, int month, int day) {
+    @Override public Day getDay(int year, int month, int day) {
       //TODO: Calculate other Chronologies
       Day newDay = new Day();
       newDay.year = year;
@@ -106,6 +112,27 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
     }
 
     /**
+     * Calculate start and end of a week for the given parameters.
+     *
+     * @param dateTime      DateTime to calculate from
+     * @param monthIndicator how many month to forward or backward
+     * @return {@link Duration Duration}
+     */
+    private Duration getMonthBounds(DateTime dateTime, int monthIndicator) {
+        Duration duration = new Duration();
+        duration.mDurationStart = dateTime.withDayOfMonth(1).withTimeAtStartOfDay();
+        if (monthIndicator >= 0) {
+            duration.mDurationStart = duration.mDurationStart.plusMonths(monthIndicator);
+            duration.mDurationEnd = duration.mDurationStart.plusMonths(1);
+        } else {
+            duration.mDurationStart = duration.mDurationStart.minusMonths(-monthIndicator);
+            duration.mDurationEnd = duration.mDurationStart.plusMonths(1);
+        }
+        duration.mDurationDays = getDaysBetween(duration.mDurationStart, duration.mDurationEnd);
+        return duration;
+    }
+
+    /**
      * Gets a list of Dates between the given dates
      *
      * @param startDate startDate
@@ -125,8 +152,8 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
     /**
      * Create a list of Day from the given duration
      *
-     * @param duration
-     * @return
+     * @param duration interval to get the days from
+     * @return a list of days between start and end of the given duration
      */
     private ArrayList<Day> getDays(Duration duration) {
         Day day;
