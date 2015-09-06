@@ -8,6 +8,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -51,5 +54,14 @@ public class DateCalTest {
         day.day = dateTime.getDayOfMonth();
         Day day = dateCal.getDay(1);
         assertTrue(this.day.equals(day));
+    }
+
+    @Test
+    public void it_should_return_seven_days() throws Exception {
+        //TODO: Add more tests
+        day = new Day();
+        dateTime = new DateTime();
+        ArrayList<Day> weekDays = dateCal.getWeekDays(1);
+        assertEquals(7, weekDays.size());
     }
 }
