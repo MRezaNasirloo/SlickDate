@@ -3,8 +3,10 @@ package com.sixthsolution.datecalculator;
 import com.sixthsolution.datecalculator.calendar.CalendarConfig;
 import com.sixthsolution.datecalculator.model.Day;
 import java.util.ArrayList;
+
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+import org.joda.time.Days;
 
 public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
@@ -52,10 +54,16 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   @Override public ArrayList<Day> getWeekDays(int weekIndicator) {
-    return null;
+      DateTime dateTime = new DateTime();
+      if (mConfig.hasTimeZone) {
+          DateTimeZone timeZone = DateTimeZone.forOffsetHoursMinutes(mConfig.timeZoneHour, mConfig.timeZoneMinute);
+          dateTime = new DateTime(timeZone);
+      }
+      Duration duration = getWeekBounds(dateTime, weekIndicator, mConfig);
+      return getDays(duration);
   }
 
-  @Override public ArrayList<Day> getMonthDays(int monthIndicator) {
+    @Override public ArrayList<Day> getMonthDays(int monthIndicator) {
     return null;
   }
 
@@ -65,7 +73,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
       newDay.year = year;
       newDay.month = month;
       newDay.day = day;
-    return newDay;
+      return newDay;
   }
 
   @Override public String getReadableTimestamp(DateTime toDateTime) {
@@ -75,4 +83,67 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   @Override public String getReadableTimestamp(DateTime toDateTime, String locale) {
     return null;
   }
+
+    /**
+     * Calculate start and end of a week for the given parameters.
+     *
+     * @param dateTime      DateTime to calculate from
+     * @param weekIndicator how many week to forward or backward
+     * @param config        CalenderConfig to indicate the week start day
+     * @return {@link Duration Duration}
+     */
+    private Duration getWeekBounds(DateTime dateTime, int weekIndicator, CalendarConfig config) {
+        Duration duration = new Duration();
+        duration.mDurationStart = dateTime.withDayOfWeek(config.firstDayOfWeek).withTimeAtStartOfDay();
+        if (weekIndicator >= 0)
+            duration.mDurationEnd = duration.mDurationStart.plusWeeks(weekIndicator);
+        else {
+            duration.mDurationStart = duration.mDurationStart.minusWeeks(-weekIndicator);
+            duration.mDurationEnd = duration.mDurationStart.plusWeeks(1);
+        }
+        duration.mDurationDays = getDaysBetween(duration.mDurationStart, duration.mDurationEnd);
+        return duration;
+    }
+
+    /**
+     * Gets a list of Dates between the given dates
+     *
+     * @param startDate startDate
+     * @param endDate   endDate
+     * @return A list of {@link DateTime}
+     */
+    private ArrayList<DateTime> getDaysBetween(DateTime startDate, DateTime endDate) {
+        int size = Days.daysBetween(startDate, endDate).getDays();
+        ArrayList<DateTime> days = new ArrayList<>(size);
+        while (!startDate.isEqual(endDate)) {
+            days.add(startDate);
+            startDate = startDate.plusDays(1);
+        }
+        return days;
+    }
+
+    /**
+     * Create a list of Day from the given duration
+     *
+     * @param duration
+     * @return
+     */
+    private ArrayList<Day> getDays(Duration duration) {
+        Day day;
+        ArrayList<Day> weekDays = new ArrayList<>(duration.mDurationDays.size());
+        for (DateTime date : duration.mDurationDays) {
+            day = getDay(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
+            weekDays.add(day);
+        }
+        return weekDays;
+    }
+
+    /**
+     * A ObjectValue class for holding two point in time an the days between them
+     */
+    private class Duration {
+        public DateTime mDurationStart;
+        public DateTime mDurationEnd;
+        public ArrayList<DateTime> mDurationDays;
+    }
 }
