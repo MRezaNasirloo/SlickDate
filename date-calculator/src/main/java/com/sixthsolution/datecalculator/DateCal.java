@@ -48,11 +48,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
           dateTime = dateTime.plusDays(dayIndicator);
       else
           dateTime = dateTime.minusDays(-dayIndicator);
-      Day day = new Day();
-      day.year = dateTime.getYear();
-      day.month = dateTime.getMonthOfYear();
-      day.day = dateTime.getDayOfMonth();
-      return day;
+      return getDay(dateTime.getYear(),dateTime.getMonthOfYear(),dateTime.getDayOfMonth());
   }
 
   @Override public ArrayList<Day> getWeekDays(int weekIndicator) {
@@ -64,7 +60,12 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   @Override public Day getDay(int year, int month, int day) {
-    return null;
+      //TODO: Calculate other Chronologies
+      Day newDay = new Day();
+      newDay.year = year;
+      newDay.month = month;
+      newDay.day = day;
+    return newDay;
   }
 
   @Override public String getReadableTimestamp(DateTime toDateTime) {
