@@ -4,10 +4,12 @@ import com.sixthsolution.datecalculator.calendar.CalendarConfig;
 import com.sixthsolution.datecalculator.calendar.IsoToJalali;
 import com.sixthsolution.datecalculator.model.Day;
 import java.util.ArrayList;
+import java.util.Locale;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
 import org.joda.time.chrono.IslamicChronology;
+import org.ocpsoft.prettytime.PrettyTime;
 
 public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
@@ -105,11 +107,13 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   @Override public String getReadableTimestamp(DateTime toDateTime) {
-    return null;
+    PrettyTime prettyTime = new PrettyTime();
+    return prettyTime.format(toDateTime.toDate());
   }
 
   @Override public String getReadableTimestamp(DateTime toDateTime, String locale) {
-    return null;
+    PrettyTime prettyTime = new PrettyTime(new Locale(locale));
+    return prettyTime.format(toDateTime.toDate());
   }
 
   /**

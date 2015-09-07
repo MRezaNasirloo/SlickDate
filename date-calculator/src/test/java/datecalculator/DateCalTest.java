@@ -104,4 +104,35 @@ public class DateCalTest {
     dateTime = new DateTime(day.year, day.month, day.day, 0, 0, 0);
     assertEquals(dateTime.dayOfMonth().getMaximumValue(), monthDays.size());
   }
+
+  @Test public void should_return_readable_time_stamps() throws Exception {
+    dateTime = new DateTime();
+    assertEquals("moments from now", dateCal.getReadableTimestamp(new DateTime().plusSeconds(3)));
+    assertEquals("10 minutes from now", dateCal.getReadableTimestamp(new DateTime().plusMinutes(10)));
+    assertEquals("5 hours from now", dateCal.getReadableTimestamp(new DateTime().plusHours(5)));
+    assertEquals("3 days from now", dateCal.getReadableTimestamp(new DateTime().plusDays(3)));
+    assertEquals("2 weeks from now", dateCal.getReadableTimestamp(new DateTime().plusWeeks(2)));
+    assertEquals("3 months from now", dateCal.getReadableTimestamp(new DateTime().plusMonths(3)));
+
+    assertEquals("moments ago", dateCal.getReadableTimestamp(new DateTime().minusSeconds(3)));
+    assertEquals("10 minutes ago", dateCal.getReadableTimestamp(new DateTime().minusMinutes(10)));
+    assertEquals("5 hours ago", dateCal.getReadableTimestamp(new DateTime().minusHours(5)));
+    assertEquals("3 days ago", dateCal.getReadableTimestamp(new DateTime().minusDays(3)));
+    assertEquals("2 weeks ago", dateCal.getReadableTimestamp(new DateTime().minusWeeks(2)));
+    assertEquals("3 months ago", dateCal.getReadableTimestamp(new DateTime().minusMonths(3)));
+
+    assertEquals("چند لحظه دیگر", dateCal.getReadableTimestamp(new DateTime().plusSeconds(3),CalendarConfig.Locale.fa.toString()));
+    assertEquals("10 دقیقه دیگر", dateCal.getReadableTimestamp(new DateTime().plusMinutes(10),CalendarConfig.Locale.fa.toString()));
+    assertEquals("5 ساعت دیگر", dateCal.getReadableTimestamp(new DateTime().plusHours(5),CalendarConfig.Locale.fa.toString()));
+    assertEquals("3 روز دیگر", dateCal.getReadableTimestamp(new DateTime().plusDays(3),CalendarConfig.Locale.fa.toString()));
+    assertEquals("2 هفته دیگر", dateCal.getReadableTimestamp(new DateTime().plusWeeks(2),CalendarConfig.Locale.fa.toString()));
+    assertEquals("3 ماه دیگر", dateCal.getReadableTimestamp(new DateTime().plusMonths(3),CalendarConfig.Locale.fa.toString()));
+
+    assertEquals("چند لحظه پیش", dateCal.getReadableTimestamp(new DateTime().minusSeconds(3),CalendarConfig.Locale.fa.toString()));
+    assertEquals("10 دقیقه پیش", dateCal.getReadableTimestamp(new DateTime().minusMinutes(10),CalendarConfig.Locale.fa.toString()));
+    assertEquals("5 ساعت پیش", dateCal.getReadableTimestamp(new DateTime().minusHours(5),CalendarConfig.Locale.fa.toString()));
+    assertEquals("3 روز پیش", dateCal.getReadableTimestamp(new DateTime().minusDays(3),CalendarConfig.Locale.fa.toString()));
+    assertEquals("2 هفته پیش", dateCal.getReadableTimestamp(new DateTime().minusWeeks(2),CalendarConfig.Locale.fa.toString()));
+    assertEquals("3 ماه پیش", dateCal.getReadableTimestamp(new DateTime().minusMonths(3),CalendarConfig.Locale.fa.toString()));
+  }
 }
