@@ -2,9 +2,36 @@ package com.sixthsolution.datecalculator.model;
 
 public class Day {
 
-  public int year, month, day;
-  public int jalaliYear, jalaliMonth, jalaliDay;
-  public int islamicYear, islamicMonth, islamicDay;
+  public int year;
+  public int month;
+  public int day;
+  public int jalaliYear;
+  public int jalaliMonth;
+  public int jalaliDay;
+  public int islamicYear;
+  public int islamicMonth;
+  public int islamicDay;
+
+  public Day setIsoDate(int year, int month, int day) {
+    this.year = year;
+    this.month = month;
+    this.day = day;
+    return this;
+  }
+
+  public Day setJalaliDate(int jalaliYear, int jalaliMonth, int jalaliDay) {
+    this.jalaliYear = jalaliYear;
+    this.jalaliMonth = jalaliMonth;
+    this.jalaliDay = jalaliDay;
+    return this;
+  }
+
+  public Day setIslamicDate(int islamicYear, int islamicMonth, int islamicDay) {
+    this.islamicYear = islamicYear;
+    this.islamicMonth = islamicMonth;
+    this.islamicDay = islamicDay;
+    return this;
+  }
 
   @Override public boolean equals(Object o) {
     if (o != null && o instanceof Day) {
