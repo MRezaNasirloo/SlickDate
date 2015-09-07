@@ -1,6 +1,7 @@
 package com.sixthsolution.datecalculator.calendar;
 
-import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import org.joda.time.DateTimeConstants;
 
 public class CalendarConfig {
@@ -13,7 +14,7 @@ public class CalendarConfig {
     ISO, JALALI, ISLAMIC
   }
 
-  public ArrayList<Chronology> chronologies = new ArrayList<>();
+  public HashSet<Chronology> chronologies = new HashSet<>();
 
   public int timeZoneHour = 0;
   public int timeZoneMinute = 0;
@@ -31,15 +32,8 @@ public class CalendarConfig {
     hasTimeZone = builder.hasTimeZone;
     firstDayOfWeek = builder.firstDayOfWeek;
     locale = builder.locale;
+    chronologies = builder.chronologies;
     chronologies.add(Chronology.ISO);
-  }
-
-  public void addChronology(Chronology chronology) {
-
-  }
-
-  public void addChronolgy(Chronology... chronology) {
-
   }
 
   /**
@@ -47,6 +41,7 @@ public class CalendarConfig {
    */
   public static class ConfigBuilder {
 
+    public HashSet<Chronology> chronologies = new HashSet<>();
     public int timeZoneHour = 0;
     public int timeZoneMinute = 0;
     public boolean hasTimeZone = false;
@@ -67,6 +62,16 @@ public class CalendarConfig {
 
     public ConfigBuilder setLocale(String locale) {
       this.locale = locale;
+      return this;
+    }
+
+    public ConfigBuilder addChronology(Chronology chronology) {
+      this.chronologies.add(chronology);
+      return this;
+    }
+
+    public ConfigBuilder addChronolgy(Chronology... chronology) {
+      this.chronologies.addAll(Arrays.asList(chronology));
       return this;
     }
 
