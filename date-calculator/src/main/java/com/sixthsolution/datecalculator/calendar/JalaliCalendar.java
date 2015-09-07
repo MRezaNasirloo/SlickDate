@@ -140,7 +140,8 @@ public class JalaliCalendar extends Calendar {
     this(year, month, dayOfMonth, hourOfDay, minute, 0, 0);
   }
 
-  public JalaliCalendar(int year, int month, int dayOfMonth, int hourOfDay, int minute, int second) {
+  public JalaliCalendar(int year, int month, int dayOfMonth, int hourOfDay, int minute,
+      int second) {
     this(year, month, dayOfMonth, hourOfDay, minute, second, 0);
   }
 
@@ -178,7 +179,9 @@ public class JalaliCalendar extends Calendar {
 
   /**
    * Converts Gregorian date to Jalali date
+   * <p>
    * NOTE: Months start at 0
+   * </p>
    *
    * @param gregorian date in Gregorian or ISO Calender
    * @return A ValueObject which contains the jalali date
@@ -219,7 +222,7 @@ public class JalaliCalendar extends Calendar {
     jalaliNP = (int) Math.floor(jalaliDayNo / 12053);
     jalaliDayNo = jalaliDayNo % 12053;
 
-    jalaliYear = 979 + 33 * jalaliNP + 4 * jalaliDayNo / 1461;
+    jalaliYear = 979 + 33 * jalaliNP + 4 * (jalaliDayNo / 1461);
     jalaliDayNo = jalaliDayNo % 1461;
 
     if (jalaliDayNo >= 366) {
@@ -252,7 +255,7 @@ public class JalaliCalendar extends Calendar {
     jalali.setYear(jalali.getYear() - 979);
     jalali.setDay(jalali.getDay() - 1);
 
-    jalaliDayNo = 365 * jalali.getYear() + jalali.getYear() / 33 * 8 + (int) Math.floor(
+    jalaliDayNo = 365 * jalali.getYear() + (jalali.getYear() / 33) * 8 + (int) Math.floor(
         ((jalali.getYear() % 33) + 3) / 4);
     for (i = 0; i < jalali.getMonth(); ++i) {
       jalaliDayNo += jalaliDaysInMonth[i];

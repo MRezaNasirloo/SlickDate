@@ -51,12 +51,13 @@ public class DateCalTest {
 
     day = dateCal.getDay(2021, 3, 20);
     dayToBe.setIsoDate(2021, 3, 20);
-    dayToBe.setJalaliDate(1400, 1, 1);
-    dayToBe.setIslamicDate(1442, 8, 7);
+    dayToBe.setJalaliDate(1399, 12, 30);
+    dayToBe.setIslamicDate(1442, 8, 6);
     assertTrue(this.day.equals(dayToBe));
   }
 
   @Test public void testGetDayMinus() throws Exception {
+    dateCal = DateCal.newInstance(new CalendarConfig.ConfigBuilder().build());
     day = new Day();
     dateTime = new DateTime();
     dateTime = dateTime.minusDays(1);
@@ -68,6 +69,7 @@ public class DateCalTest {
   }
 
   @Test public void testGetDayPlus() throws Exception {
+    dateCal = DateCal.newInstance(new CalendarConfig.ConfigBuilder().build());
     day = new Day();
     dateTime = new DateTime();
     dateTime = dateTime.plusDays(1);
