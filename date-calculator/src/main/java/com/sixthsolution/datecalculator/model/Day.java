@@ -36,7 +36,10 @@ public class Day {
   @Override public boolean equals(Object o) {
     if (o != null && o instanceof Day) {
       final Day other = (Day) o;
-      return this.year == other.year && this.month == other.month && this.day == other.day;
+      return this.year == other.year && this.month == other.month && this.day == other.day
+          && this.jalaliYear == other.jalaliYear && this.jalaliMonth == other.jalaliMonth
+          && this.jalaliDay == other.jalaliDay && this.islamicYear == other.islamicYear
+          && this.islamicMonth == other.islamicMonth && this.islamicDay == other.islamicDay;
     }
     return false;
   }
