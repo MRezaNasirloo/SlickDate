@@ -17,6 +17,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
   private CalendarConfig mConfig;
   private JalaliCalenderConverter mIsoToJalali;
+  private DateTimeZone mTimeZone;
 
   public static DateCal newInstance(CalendarConfig config) {
     sInstance = new DateCal();
@@ -40,6 +41,10 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
     if (mConfig.chronologies.contains(CalendarConfig.Chronology.JALALI)) {
       mIsoToJalali = new IsoToJalali();
     }
+
+    if (mConfig.hasTimeZone) {
+      mTimeZone = DateTimeZone.forOffsetHoursMinutes(mConfig.timeZoneHour, mConfig.timeZoneMinute);
+    }
     return this;
   }
 
@@ -48,12 +53,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   @Override public Day getDay(int dayIndicator) {
-    DateTime dateTime = new DateTime();
-    if (mConfig.hasTimeZone) {
-      DateTimeZone timeZone =
-          DateTimeZone.forOffsetHoursMinutes(mConfig.timeZoneHour, mConfig.timeZoneMinute);
-      dateTime = dateTime.withZone(timeZone);
-    }
+    DateTime dateTime = getDateWithTimezone();
     if (dayIndicator >= 0) {
       dateTime = dateTime.plusDays(dayIndicator);
     } else {
@@ -63,23 +63,13 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   @Override public ArrayList<Day> getWeekDays(int weekIndicator) {
-    DateTime dateTime = new DateTime();
-    if (mConfig.hasTimeZone) {
-      DateTimeZone timeZone =
-          DateTimeZone.forOffsetHoursMinutes(mConfig.timeZoneHour, mConfig.timeZoneMinute);
-      dateTime = new DateTime(timeZone);
-    }
+    DateTime dateTime = getDateWithTimezone();
     Duration duration = getWeekBounds(dateTime, weekIndicator, mConfig);
     return getDays(duration);
   }
 
   @Override public ArrayList<Day> getMonthDays(int monthIndicator) {
-    DateTime dateTime = new DateTime();
-    if (mConfig.hasTimeZone) {
-      DateTimeZone timeZone =
-          DateTimeZone.forOffsetHoursMinutes(mConfig.timeZoneHour, mConfig.timeZoneMinute);
-      dateTime = new DateTime(timeZone);
-    }
+    DateTime dateTime = getDateWithTimezone();
     Duration duration = getMonthBounds(dateTime, monthIndicator);
     return getDays(duration);
   }
@@ -189,6 +179,19 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
       durationDays.add(day);
     }
     return durationDays;
+  }
+
+  /**
+   * Returns Current DateTime with timeZone if there's any in {@link CalendarConfig} member
+   *
+   * @return DateTime with TimeZone config
+   */
+  private DateTime getDateWithTimezone() {
+    DateTime dateTime = new DateTime();
+    if (mConfig.hasTimeZone) {
+      dateTime = dateTime.withZone(mTimeZone);
+    }
+    return dateTime;
   }
 
   /**
