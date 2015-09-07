@@ -1,18 +1,20 @@
 package com.sixthsolution.datecalculator;
 
 import com.sixthsolution.datecalculator.calendar.CalendarConfig;
+import com.sixthsolution.datecalculator.calendar.IsoToJalali;
 import com.sixthsolution.datecalculator.model.Day;
 import java.util.ArrayList;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Days;
+import org.joda.time.chrono.IslamicChronology;
 
 public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
   private static DateCal sInstance;
 
   private CalendarConfig mConfig;
+  private JalaliCalenderConverter mIsoToJalali;
 
   public static DateCal newInstance(CalendarConfig config) {
     sInstance = new DateCal();
@@ -33,6 +35,9 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
   public DateCal setConfig(CalendarConfig config) {
     mConfig = config;
+    if (mConfig.chronologies.contains(CalendarConfig.Chronology.JALALI)) {
+      mIsoToJalali = new IsoToJalali();
+    }
     return this;
   }
 
@@ -80,9 +85,22 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   @Override public Day getDay(int year, int month, int day) {
     //TODO: Calculate other Chronologies
     Day newDay = new Day();
-    newDay.year = year;
-    newDay.month = month;
-    newDay.day = day;
+    for (CalendarConfig.Chronology chronology : mConfig.chronologies) {
+      switch (chronology) {
+        case ISO:
+          newDay.setIsoDate(year, month, day);
+          continue;
+        case JALALI:
+          Day date = mIsoToJalali.convert(year, month, day);
+          newDay.setJalaliDate(date.jalaliYear, date.jalaliMonth, date.jalaliDay);
+          continue;
+        case ISLAMIC:
+          DateTime dateTime = new DateTime(year, month, day, 0, 0);
+          dateTime = dateTime.withChronology(IslamicChronology.getInstance());
+          newDay.setIslamicDate(dateTime.getYear(), dateTime.getMonthOfYear(),
+              dateTime.getDayOfMonth());
+      }
+    }
     return newDay;
   }
 
