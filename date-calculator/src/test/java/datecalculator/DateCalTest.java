@@ -1,14 +1,13 @@
 package datecalculator;
 
 import com.sixthsolution.datecalculator.DateCal;
+import com.sixthsolution.datecalculator.calendar.CalendarConfig;
 import com.sixthsolution.datecalculator.model.Day;
-
+import java.util.ArrayList;
 import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -28,6 +27,33 @@ public class DateCalTest {
 
   @After public void tearDown() throws Exception {
 
+  }
+
+  @Test public void testGetDay() throws Exception {
+    day = new Day();
+    CalendarConfig config =
+        new CalendarConfig.ConfigBuilder().addChronolgy(CalendarConfig.Chronology.ISO,
+            CalendarConfig.Chronology.JALALI, CalendarConfig.Chronology.ISLAMIC).build();
+    dateCal = DateCal.newInstance(config);
+    Day dayToBe = new Day();
+
+    day = dateCal.getDay(2015, 9, 7);
+    dayToBe.setIsoDate(2015, 9, 7);
+    dayToBe.setJalaliDate(1394, 6, 16);
+    dayToBe.setIslamicDate(1436, 11, 23);
+    assertTrue(this.day.equals(dayToBe));
+
+    day = dateCal.getDay(2018, 3, 21);
+    dayToBe.setIsoDate(2018, 3, 21);
+    dayToBe.setJalaliDate(1397, 1, 1);
+    dayToBe.setIslamicDate(1439, 7, 4);
+    assertTrue(this.day.equals(dayToBe));
+
+    day = dateCal.getDay(2021, 3, 20);
+    dayToBe.setIsoDate(2021, 3, 20);
+    dayToBe.setJalaliDate(1400, 1, 1);
+    dayToBe.setIslamicDate(1442, 8, 7);
+    assertTrue(this.day.equals(dayToBe));
   }
 
   @Test public void testGetDayMinus() throws Exception {
