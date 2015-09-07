@@ -10,6 +10,10 @@ public class CalendarConfig {
   public static final int SUNDAY = DateTimeConstants.SUNDAY;
   public static final int MONDAY = DateTimeConstants.MONDAY;
 
+  public enum Locale {
+    ar, bg, ca, cs, da, de, en, es, et, fa, fi, fr, hi, hr, hu, in, it, ja, ko, nl, no, pl, pt, ro, ru, sl, sv, tr, uk, vi, zh
+  }
+
   public enum Chronology {
     ISO, JALALI, ISLAMIC
   }
