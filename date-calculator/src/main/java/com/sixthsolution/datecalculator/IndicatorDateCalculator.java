@@ -31,7 +31,8 @@ public interface IndicatorDateCalculator {
   /**
    * Creates an arrays which includes all {@link Day}s in a month based on given month indicator.
    * <p>
-   * For example, assume that we are in February and <code>getMonthDays(-1)</code> returns all days in January
+   * For example, assume that we are in February and <code>getMonthDays(-1)</code> returns all days
+   * in January
    * , first object in array is 1st day of January and last object in array is 31th day of
    * January.
    * </p>
