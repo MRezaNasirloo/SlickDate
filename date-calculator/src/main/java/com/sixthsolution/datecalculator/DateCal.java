@@ -161,16 +161,16 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
    */
   private ArrayList<Day> getDays(Duration duration) {
     Day day;
-    ArrayList<Day> weekDays = new ArrayList<>(duration.mDurationDays.size());
+    ArrayList<Day> durationDays = new ArrayList<>(duration.mDurationDays.size());
     for (DateTime date : duration.mDurationDays) {
       day = getDay(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
-      weekDays.add(day);
+      durationDays.add(day);
     }
-    return weekDays;
+    return durationDays;
   }
 
   /**
-   * A ObjectValue class for holding two point in time an the days between them
+   * A ObjectValue class for holding two point in time and the days between them
    */
   private class Duration {
     public DateTime mDurationStart;
