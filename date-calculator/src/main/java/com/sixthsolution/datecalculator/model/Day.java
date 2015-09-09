@@ -11,6 +11,7 @@ public class Day {
   public int islamicYear;
   public int islamicMonth;
   public int islamicDay;
+  public int dayOfWeek = -1;
 
   public Day setIsoDate(int year, int month, int day) {
     this.year = year;
@@ -42,5 +43,11 @@ public class Day {
           && this.islamicMonth == other.islamicMonth && this.islamicDay == other.islamicDay;
     }
     return false;
+  }
+
+  @Override public String toString() {
+    return year + "/" + month + "/" + day + " : " + dayOfWeek + "\n" +
+        "Jalali: " + jalaliYear + "/" + jalaliMonth + "/" + jalaliDay + "\n" +
+        "Islamic: " + islamicYear + "/" + islamicMonth + "/" + islamicDay;
   }
 }
