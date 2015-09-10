@@ -30,7 +30,7 @@ public class CalendarConfig {
     chronologies.add(Chronology.ISO);
   }
 
-  private CalendarConfig(ConfigBuilder builder) {
+  private CalendarConfig(Builder builder) {
     timeZoneHour = builder.timeZoneHour;
     timeZoneMinute = builder.timeZoneMinute;
     hasTimeZone = builder.hasTimeZone;
@@ -43,7 +43,7 @@ public class CalendarConfig {
   /**
    * Builder for creating {@link CalendarConfig} object.
    */
-  public static class ConfigBuilder {
+  public static class Builder {
 
     public HashSet<Chronology> chronologies = new HashSet<>();
     public int timeZoneHour = 0;
@@ -52,29 +52,29 @@ public class CalendarConfig {
     public int firstDayOfWeek = MONDAY;
     public String locale = "en";
 
-    public ConfigBuilder setTimeZone(int hour, int minute) {
+    public Builder setTimeZone(int hour, int minute) {
       this.timeZoneHour = hour;
       this.timeZoneMinute = minute;
       hasTimeZone = true;
       return this;
     }
 
-    public ConfigBuilder setFirstDayOfWeek(int firstDayOfWeek) {
+    public Builder setFirstDayOfWeek(int firstDayOfWeek) {
       this.firstDayOfWeek = firstDayOfWeek;
       return this;
     }
 
-    public ConfigBuilder setLocale(String locale) {
+    public Builder setLocale(String locale) {
       this.locale = locale;
       return this;
     }
 
-    public ConfigBuilder addChronology(Chronology chronology) {
+    public Builder addChronology(Chronology chronology) {
       this.chronologies.add(chronology);
       return this;
     }
 
-    public ConfigBuilder addChronolgy(Chronology... chronology) {
+    public Builder addChronolgy(Chronology... chronology) {
       this.chronologies.addAll(Arrays.asList(chronology));
       return this;
     }
