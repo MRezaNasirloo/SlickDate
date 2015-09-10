@@ -1,34 +1,43 @@
 package com.sixthsolution.test.datecalculator;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+import com.sixthsolution.datecalculator.DateCal;
+import com.sixthsolution.datecalculator.calendar.CalendarConfig;
+import com.sixthsolution.datecalculator.model.Day;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-  }
-
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
-    // Inflate the menu; this adds items to the action bar if it is present.
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return true;
-  }
-
-  @Override public boolean onOptionsItemSelected(MenuItem item) {
-    // Handle action bar item clicks here. The action bar will
-    // automatically handle clicks on the Home/Up button, so long
-    // as you specify a parent activity in AndroidManifest.xml.
-    int id = item.getItemId();
-
-    //noinspection SimplifiableIfStatement
-    if (id == R.id.action_settings) {
-      return true;
+    DateCal dc = DateCal.newInstance(
+        new CalendarConfig.Builder().addChronolgy(CalendarConfig.Chronology.JALALI,
+            CalendarConfig.Chronology.ISLAMIC).setFirstDayOfWeek(CalendarConfig.SUNDAY).build());
+    TextView textView = (TextView) findViewById(R.id.test);
+    long time = System.currentTimeMillis();
+    StringBuilder sb = new StringBuilder();
+    sb.append("\n\nToday\n");
+    sb.append(dc.getDay(0).toString());
+    sb.append("\n\nTomorrow\n");
+    sb.append(dc.getDay(1).toString());
+    sb.append("\n\nYesterday\n");
+    sb.append(dc.getDay(-1).toString());
+    sb.append("\n---------Next Week-------------\n");
+    ArrayList<Day> daysInNextWeek = dc.getWeekDays(1);
+    for (Day day : daysInNextWeek) {
+      sb.append(day.toString()).append("\n\n");
     }
+    sb.append("\n---------Previous Month-------------\n");
+    ArrayList<Day> daysInPreviousMonth = dc.getMonthDays(-1);
+    for (Day day : daysInPreviousMonth) {
+      sb.append(day.toString()).append("\n\n");
+    }
+    sb.append("\n----------------------\n");
+    sb.append("parsing time : ").append(System.currentTimeMillis() - time).append(" millis");
 
-    return super.onOptionsItemSelected(item);
+    textView.setText(sb.toString());
   }
 }

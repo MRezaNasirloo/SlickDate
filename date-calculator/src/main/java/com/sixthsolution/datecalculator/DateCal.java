@@ -11,6 +11,9 @@ import org.joda.time.Days;
 import org.joda.time.chrono.IslamicChronology;
 import org.ocpsoft.prettytime.PrettyTime;
 
+/**
+ * @author MohammadReza Nasirloo
+ */
 public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
   private static DateCal sInstance;
@@ -33,7 +36,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   private DateCal() {
-    mConfig = new CalendarConfig.ConfigBuilder().build();
+    mConfig = new CalendarConfig.Builder().build();
   }
 
   public DateCal setConfig(CalendarConfig config) {
@@ -76,7 +79,17 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 
   @Override public Day getDay(int year, int month, int day) {
     //TODO: Calculate other Chronologies
+    return getDay(new DateTime(year, month, day, 0, 0));
+  }
+
+  private Day getDay(DateTime dateTime) {
+    int year = dateTime.getYear();
+    int month = dateTime.getMonthOfYear();
+    int day = dateTime.getDayOfMonth();
+
     Day newDay = new Day();
+    newDay.dayOfWeek = dateTime.getDayOfWeek();
+
     for (CalendarConfig.Chronology chronology : mConfig.chronologies) {
       switch (chronology) {
         case ISO:
@@ -87,10 +100,10 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
           newDay.setJalaliDate(date.jalaliYear, date.jalaliMonth, date.jalaliDay);
           continue;
         case ISLAMIC:
-          DateTime dateTime = new DateTime(year, month, day, 0, 0);
-          dateTime = dateTime.withChronology(IslamicChronology.getInstance());
-          newDay.setIslamicDate(dateTime.getYear(), dateTime.getMonthOfYear(),
-              dateTime.getDayOfMonth());
+          DateTime islamicDateTime = new DateTime(year, month, day, 0, 0);
+          islamicDateTime = islamicDateTime.withChronology(IslamicChronology.getInstance());
+          newDay.setIslamicDate(islamicDateTime.getYear(), islamicDateTime.getMonthOfYear(),
+              islamicDateTime.getDayOfMonth());
       }
     }
     return newDay;
@@ -175,7 +188,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
     Day day;
     ArrayList<Day> durationDays = new ArrayList<>(duration.mDurationDays.size());
     for (DateTime date : duration.mDurationDays) {
-      day = getDay(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
+      day = getDay(date);
       durationDays.add(day);
     }
     return durationDays;
@@ -195,7 +208,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   }
 
   /**
-   * A ObjectValue class for holding two point in time and the days between them
+   * An ObjectValue class for holding two point in time and the days between them
    */
   private class Duration {
     public DateTime mDurationStart;

@@ -18,7 +18,8 @@ android {
     }
   }
 }
-
+repositories { maven { url "http://dl.bintray.com/6thsolution/maven" } }
 dependencies {
   compile 'com.android.support:appcompat-v7:23.0.1'
+  compile 'com.sixthsolution:date-calculator:0.5.0'
 }

@@ -32,7 +32,7 @@ public class DateCalTest {
   @Test public void testGetDay() throws Exception {
     day = new Day();
     CalendarConfig config =
-        new CalendarConfig.ConfigBuilder().addChronolgy(CalendarConfig.Chronology.ISO,
+        new CalendarConfig.Builder().addChronolgy(CalendarConfig.Chronology.ISO,
             CalendarConfig.Chronology.JALALI, CalendarConfig.Chronology.ISLAMIC).build();
     dateCal = DateCal.newInstance(config);
     Day dayToBe = new Day();
@@ -57,7 +57,7 @@ public class DateCalTest {
   }
 
   @Test public void testGetDayMinus() throws Exception {
-    dateCal = DateCal.newInstance(new CalendarConfig.ConfigBuilder().build());
+    dateCal = DateCal.newInstance(new CalendarConfig.Builder().build());
     day = new Day();
     dateTime = new DateTime();
     dateTime = dateTime.minusDays(1);
@@ -69,7 +69,7 @@ public class DateCalTest {
   }
 
   @Test public void testGetDayPlus() throws Exception {
-    dateCal = DateCal.newInstance(new CalendarConfig.ConfigBuilder().build());
+    dateCal = DateCal.newInstance(new CalendarConfig.Builder().build());
     day = new Day();
     dateTime = new DateTime();
     dateTime = dateTime.plusDays(1);
