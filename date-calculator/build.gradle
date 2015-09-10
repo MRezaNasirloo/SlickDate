@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 
-version = '0.5.0-RC1'
+version = '0.5.0'
 
 android {
   compileSdkVersion 23
@@ -22,6 +22,7 @@ android {
 
 ext {
   bintrayRepo = 'maven'
+  organizationName = '6thsolution'
   bintrayName = 'date-calculator'
 
   publishedGroupId = 'com.sixthsolution'
@@ -32,7 +33,7 @@ ext {
   libraryDescription = 'A wrapper library for using joda'
   libraryVersion = version
 
-  developerId = ''
+  developerId = 'smasoumi'
   developerName = 'MohammadReza Nasirloo'
   developerEmail = 'info@6thsolution.com'
 
@@ -43,4 +44,4 @@ dependencies {
   testCompile 'junit:junit:4.12'
 }
 
-apply from: 'https://raw.githubusercontent.com/smasoumi/Bintray/master/bintray.gradle'
+apply from: 'https://raw.githubusercontent.com/smasoumi/Bintray/master/bintray_org_no_javadoc.gradle'
