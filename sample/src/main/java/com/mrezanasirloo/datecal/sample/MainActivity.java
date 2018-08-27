@@ -6,17 +6,22 @@ import android.widget.TextView;
 import com.mrezanasirloo.datecalculator.DateCal;
 import com.mrezanasirloo.datecalculator.calendar.CalendarConfig;
 import com.mrezanasirloo.datecalculator.model.Day;
+import com.mrezanasirloo.datecalculator.sample.R;
+
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(com.mrezanasirloo.test.datecalculator.R.layout.activity_main);
+    setContentView(R.layout.activity_main);
+    JodaTimeAndroid.init(this);
     DateCal dc = DateCal.newInstance(
         new CalendarConfig.Builder().addChronolgy(CalendarConfig.Chronology.JALALI,
             CalendarConfig.Chronology.ISLAMIC).setFirstDayOfWeek(CalendarConfig.SUNDAY).build());
-    TextView textView = (TextView) findViewById(com.mrezanasirloo.test.datecalculator.R.id.test);
+    TextView textView = (TextView) findViewById(R.id.test);
     long time = System.currentTimeMillis();
     StringBuilder sb = new StringBuilder();
     sb.append("\n\nToday\n");

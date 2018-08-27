@@ -20,6 +20,17 @@ public interface FixedDateCalculator {
   Day getDay(int year, int month, int day);
 
   /**
+   * Creates a {@link Day} object with given date information.
+   * <p>
+   * Created {@link Day} object includes other chronologies information based on user configs in
+   * {@link DateCal}.
+   * </p>
+   *
+   * @param timeStamp date in time millis
+   */
+  Day getDay(long timeStamp);
+
+  /**
    * Calculates precise duration from now to given date time and creates a human readable
    * timestamps,
    * e.g "2 seconds ago, 15 minutes from now".

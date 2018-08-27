@@ -82,6 +82,10 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
     return getDay(new DateTime(year, month, day, 0, 0));
   }
 
+  @Override public Day getDay(long timeStamp) {
+    return getDay(new DateTime(timeStamp));
+  }
+
   private Day getDay(DateTime dateTime) {
     int year = dateTime.getYear();
     int month = dateTime.getMonthOfYear();
