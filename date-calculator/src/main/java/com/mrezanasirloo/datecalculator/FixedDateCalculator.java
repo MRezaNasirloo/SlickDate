@@ -1,7 +1,7 @@
-package com.sixthsolution.datecalculator;
+package com.mrezanasirloo.datecalculator;
 
-import com.sixthsolution.datecalculator.calendar.CalendarConfig;
-import com.sixthsolution.datecalculator.model.Day;
+import com.mrezanasirloo.datecalculator.calendar.CalendarConfig;
+import com.mrezanasirloo.datecalculator.model.Day;
 import org.joda.time.DateTime;
 
 public interface FixedDateCalculator {

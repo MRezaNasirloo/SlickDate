@@ -1,8 +1,8 @@
-package com.sixthsolution.datecalculator;
+package com.mrezanasirloo.datecalculator;
 
-import com.sixthsolution.datecalculator.calendar.CalendarConfig;
-import com.sixthsolution.datecalculator.calendar.IsoToJalali;
-import com.sixthsolution.datecalculator.model.Day;
+import com.mrezanasirloo.datecalculator.calendar.CalendarConfig;
+import com.mrezanasirloo.datecalculator.calendar.IsoToJalali;
+import com.mrezanasirloo.datecalculator.model.Day;
 import java.util.ArrayList;
 import java.util.Locale;
 import org.joda.time.DateTime;
@@ -12,7 +12,7 @@ import org.joda.time.chrono.IslamicChronology;
 import org.ocpsoft.prettytime.PrettyTime;
 
 /**
- * @author MohammadReza Nasirloo
+ * @author M.Reza.Nasirloo@gmail.com
  */
 public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
 

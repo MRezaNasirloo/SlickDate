@@ -1,6 +1,6 @@
 package datecalculator.calendar;
 
-import com.sixthsolution.datecalculator.calendar.JalaliCalendar;
+import com.mrezanasirloo.datecalculator.calendar.JalaliCalendar;
 import java.util.Calendar;
 import org.junit.Test;
 

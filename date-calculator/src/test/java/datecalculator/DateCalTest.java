@@ -1,8 +1,8 @@
 package datecalculator;
 
-import com.sixthsolution.datecalculator.DateCal;
-import com.sixthsolution.datecalculator.calendar.CalendarConfig;
-import com.sixthsolution.datecalculator.model.Day;
+import com.mrezanasirloo.datecalculator.DateCal;
+import com.mrezanasirloo.datecalculator.calendar.CalendarConfig;
+import com.mrezanasirloo.datecalculator.model.Day;
 import java.util.ArrayList;
 import org.joda.time.DateTime;
 import org.junit.After;

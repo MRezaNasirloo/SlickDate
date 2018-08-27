@@ -1,10 +1,10 @@
-package com.sixthsolution.datecalculator.calendar;
+package com.mrezanasirloo.datecalculator.calendar;
 
-import com.sixthsolution.datecalculator.JalaliCalenderConverter;
-import com.sixthsolution.datecalculator.model.Day;
+import com.mrezanasirloo.datecalculator.JalaliCalenderConverter;
+import com.mrezanasirloo.datecalculator.model.Day;
 
 /**
- * Created by MohammadReza Nasirloo on 2015-09-07.
+ * Created by M.Reza.Nasirloo@gmail.com on 2015-09-07.
  */
 public class IsoToJalali implements JalaliCalenderConverter {
 

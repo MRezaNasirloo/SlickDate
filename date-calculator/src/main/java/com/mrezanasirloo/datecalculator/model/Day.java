@@ -1,4 +1,4 @@
-package com.sixthsolution.datecalculator.model;
+package com.mrezanasirloo.datecalculator.model;
 
 public class Day {
 
