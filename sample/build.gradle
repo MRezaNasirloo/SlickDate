@@ -1,13 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 23
-  buildToolsVersion "23.0.1"
-
+  compileSdkVersion 27
   defaultConfig {
     applicationId "com.sixthsolution.test.datecalculator"
-    minSdkVersion 9
-    targetSdkVersion 23
+    minSdkVersion 15
+    targetSdkVersion 27
     versionCode 1
     versionName "1.0"
   }
@@ -18,8 +16,7 @@ android {
     }
   }
 }
-repositories { maven { url "http://dl.bintray.com/6thsolution/maven" } }
 dependencies {
-  compile 'com.android.support:appcompat-v7:23.0.1'
-  compile 'com.sixthsolution:date-calculator:0.5.0'
+  implementation 'com.android.support:appcompat-v7:27.1.1'
+  implementation project(":date-calculator")
 }
