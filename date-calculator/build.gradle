@@ -17,7 +17,7 @@ android {
 }
 
 dependencies {
-  api 'joda-time:joda-time:2.8.2'
+  api 'net.danlew:android.joda:2.9.9.4'
   api 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
   testImplementation 'junit:junit:4.12'
 }
