@@ -1,7 +1,7 @@
 package com.mrezanasirloo.datecalculator;
 
 import com.mrezanasirloo.datecalculator.calendar.CalendarConfig;
-import com.mrezanasirloo.datecalculator.calendar.IsoToJalali;
+import com.mrezanasirloo.datecalculator.calendar.CalenderConverter;
 import com.mrezanasirloo.datecalculator.model.Day;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -42,7 +42,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
   public DateCal setConfig(CalendarConfig config) {
     mConfig = config;
     if (mConfig.chronologies.contains(CalendarConfig.Chronology.JALALI)) {
-      mIsoToJalali = new IsoToJalali();
+      mIsoToJalali = new CalenderConverter();
     }
 
     if (mConfig.hasTimeZone) {
@@ -100,7 +100,7 @@ public class DateCal implements IndicatorDateCalculator, FixedDateCalculator {
           newDay.setIsoDate(year, month, day);
           continue;
         case JALALI:
-          Day date = mIsoToJalali.convert(year, month, day);
+          Day date = mIsoToJalali.convertToJalali(year, month, day);
           newDay.setJalaliDate(date.jalaliYear, date.jalaliMonth, date.jalaliDay);
           continue;
         case ISLAMIC:

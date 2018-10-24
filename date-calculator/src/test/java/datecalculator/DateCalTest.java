@@ -2,6 +2,7 @@ package datecalculator;
 
 import com.mrezanasirloo.datecalculator.DateCal;
 import com.mrezanasirloo.datecalculator.calendar.CalendarConfig;
+import com.mrezanasirloo.datecalculator.calendar.CalenderConverter;
 import com.mrezanasirloo.datecalculator.model.Day;
 import java.util.ArrayList;
 import org.joda.time.DateTime;
@@ -54,6 +55,18 @@ public class DateCalTest {
     dayToBe.setJalaliDate(1399, 12, 30);
     dayToBe.setIslamicDate(1442, 8, 6);
     assertTrue(this.day.equals(dayToBe));
+  }
+
+  @Test
+  public void calender_converter_to_georgian() {
+    final Day day = new CalenderConverter().convertToGeorgian(1397, 8, 2);
+    assertEquals(day, day.setIsoDate(2018, 10, 24));
+  }
+
+  @Test
+  public void calender_converter_to_jalali() {
+    final Day day = new CalenderConverter().convertToGeorgian(2018, 10, 24);
+    assertEquals(day, day.setIsoDate(1397, 8, 2));
   }
 
   @Test public void testGetDayMinus() throws Exception {
